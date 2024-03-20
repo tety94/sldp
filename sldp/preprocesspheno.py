@@ -81,6 +81,7 @@ def main(args):
         print(time.time()-t0, ': loading chr', c, 'of', args.chroms)
         # get refpanel snp metadata for this chromosome
         snps = refpanel.bim_df(c)
+        snps.SNP = snps.SNP.astype(str)
         snps = pd.merge(snps, print_snps, on='SNP', how='left')
         snps.printsnp.fillna(False, inplace=True)
         print(len(snps), 'snps in refpanel', len(snps.columns), 'columns, including metadata')
