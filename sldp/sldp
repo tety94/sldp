@@ -157,10 +157,10 @@ def main(args):
         # estimate mu and initialize results row
         k = marginal_names.index(name)
         mu = cs.get_est(sum(chunk_nums), sum(chunk_denoms), k, len(background_names))
-        results = results.append({
+        df2 = pd.DataFrame({
             'pheno':pheno_name,
-            'annot':name},
-            ignore_index=True)
+            'annot':name},index=[0])
+        results = pd.concat([results, df2], axis=1)
 
         # compute q
         q, r, mux, muy = cs.residualize(chunk_nums, chunk_denoms, len(background_names), k)
